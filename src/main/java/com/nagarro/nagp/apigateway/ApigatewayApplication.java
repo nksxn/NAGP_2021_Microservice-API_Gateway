@@ -1,4 +1,4 @@
-package com.nagarro.nagp2021.apigateway;
+package com.nagarro.nagp.apigateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
