@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.nagarro.nagp.apigateway.service.JwtUserDetailsService;
+
 import io.jsonwebtoken.ExpiredJwtException;
 
 public class JwtRequestFilter extends OncePerRequestFilter {
