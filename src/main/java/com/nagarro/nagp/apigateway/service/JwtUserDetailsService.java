@@ -1,4 +1,4 @@
-package com.nagarro.nagp.apigateway.config.service;
+package com.nagarro.nagp.apigateway.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -8,7 +8,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		com.nagarro.finalExitProject.nagarroTravelPortal.entity.User user = userRepository.findByUsername(username);
+		User user = userRepository.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
