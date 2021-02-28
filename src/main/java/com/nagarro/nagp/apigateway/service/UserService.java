@@ -1,5 +1,7 @@
 package com.nagarro.nagp.apigateway.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.nagarro.nagp.apigateway.entity.User;
+import com.nagarro.nagp.apigateway.wrapper.UserList;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
 
@@ -28,6 +31,13 @@ public class UserService {
 		return response;
 	}
 
+	public List<User> getAllUsers() {
+		String url = "/users";
+		InstanceInfo instance = eurekaClient.getNextServerFromEureka("users", false);
+		return restTemplate.getForObject(instance.getHomePageUrl() + url, UserList.class).getUsers();
+
+	}
+
 	public EurekaClient getEurekaClient() {
 		return eurekaClient;
 	}
@@ -43,4 +53,5 @@ public class UserService {
 	public void setRestTemplate(RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
 	}
+
 }

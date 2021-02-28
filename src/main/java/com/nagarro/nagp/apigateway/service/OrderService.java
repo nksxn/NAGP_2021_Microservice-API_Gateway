@@ -1,7 +1,5 @@
 package com.nagarro.nagp.apigateway.service;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +7,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.nagarro.nagp.apigateway.entity.Admin;
-import com.nagarro.nagp.apigateway.wrapper.AdminList;
+import com.nagarro.nagp.apigateway.entity.Order;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
 
 @Service
-public class AdminService {
+public class OrderService {
 
 	@Autowired
 	private EurekaClient eurekaClient;
@@ -23,18 +20,11 @@ public class AdminService {
 	@Resource(name = "restTemp")
 	private RestTemplate restTemplate;
 
-	public List<Admin> getAllAdmins() {
-		String url = "/admins";
-		InstanceInfo instance = eurekaClient.getNextServerFromEureka("admins", false);
-		return restTemplate.getForObject(instance.getHomePageUrl() + url, AdminList.class).getAdmins();
-
-	}
-
-	public Admin addAdmin(Admin admin) {
-		String url = "/admin";
-		HttpEntity<Admin> request = new HttpEntity<>(admin);
-		InstanceInfo instance = eurekaClient.getNextServerFromEureka("admin", false);
-		Admin response = restTemplate.postForObject(instance.getHomePageUrl() + url, request, Admin.class);
+	public Order placeOrder(Order order) {
+		String url = "/order";
+		HttpEntity<Order> request = new HttpEntity<>(order);
+		InstanceInfo instance = eurekaClient.getNextServerFromEureka("orders", false);
+		Order response = restTemplate.postForObject(instance.getHomePageUrl() + url, request, Order.class);
 		return response;
 	}
 
@@ -53,5 +43,4 @@ public class AdminService {
 	public void setRestTemplate(RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
 	}
-
 }
